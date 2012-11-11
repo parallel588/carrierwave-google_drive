@@ -1,5 +1,6 @@
 # encoding: utf-8
 require "google_drive"
+require "open-uri"
 
 module CarrierWave
   module Storage
@@ -57,6 +58,10 @@ module CarrierWave
 
         def url(options = { })
           "https://docs.google.com/uc?&id=#{@resource_id}"
+        end
+
+        def read
+          open(url).read
         end
 
         private
