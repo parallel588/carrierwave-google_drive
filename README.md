@@ -17,8 +17,17 @@ Or install it yourself as:
     $ gem install carrierwave-google_drive
 
 ## Usage
+Note that for your uploader, your should extend the CarrierWave::Uploader::GoogleDrive class.
 
-TODO: Write usage instructions here
+```ruby
+class DocumentUploader < CarrierWave::Uploader::GoogleDrive
+
+  google_login    'google_account@gmail.com'
+  google_password 'password'
+
+    
+end
+```
 
 ## Contributing
 
