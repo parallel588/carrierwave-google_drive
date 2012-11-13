@@ -1,6 +1,6 @@
 # Carrierwave::GoogleDrive
 
-TODO: Write a gem description
+This gem adds storage support for Google Drive to CarrierWave
 
 ## Installation
 
