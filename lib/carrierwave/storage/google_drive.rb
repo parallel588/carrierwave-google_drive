@@ -21,9 +21,9 @@ module CarrierWave
             "https://spreadsheets.google.com/feeds/"
         auth.redirect_uri = uploader.client_secret      #"http://example.com/redirect"
         # auth.refresh_token = refresh_token
-        # auth.grant_type = 'refresh_token'
+        auth.grant_type = 'authorization_code'
         auth.fetch_access_token!
-        @connection ||= ::GoogleDrive.login_with_oauth(auth.access_token)
+        @connection ||= GoogleDrive.login_with_oauth(auth.access_token)
         
         # @connection ||= ::GoogleDrive.login( uploader.google_login, uploader.google_password )
       end
