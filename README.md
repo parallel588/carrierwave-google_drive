@@ -22,8 +22,12 @@ Note that for your uploader, your should extend the CarrierWave::Uploader::Googl
 ```ruby
 class DocumentUploader < CarrierWave::Uploader::GoogleDrive
 
-  google_login    'google_account@gmail.com'
-  google_password 'password'
+  #google_login    'google_account@gmail.com'
+  #google_password 'password'
+
+  client_id = 'YOUR CLIENT ID'
+  client_secret = 'YOUR CLIENT SECRET'
+  redirect_URIs = 'http://example.com/redirect'
 
     
 end
