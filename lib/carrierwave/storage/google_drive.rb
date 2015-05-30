@@ -1,6 +1,8 @@
 # encoding: utf-8
 require "google_drive"
 require "open-uri"
+require "rubygems"
+require "google/api_client"
 
 module CarrierWave
   module Storage
@@ -8,7 +10,22 @@ module CarrierWave
     class GoogleDrive < Abstract
 
       def connection
-        @connection ||= ::GoogleDrive.login( uploader.google_login, uploader.google_password )
+        client = Google::APIClient.new
+        auth = client.authorization
+        # Follow "Create a client ID and client secret" in
+        # https://developers.google.com/drive/web/auth/web-server] to get a client ID and client secret.
+        auth.client_id = uploader.client_ID             #"YOUR CLIENT ID"
+        auth.client_secret = uploader.client_secret     #"YOUR CLIENT SECRET"
+        auth.scope =
+            "https://www.googleapis.com/auth/drive " +
+            "https://spreadsheets.google.com/feeds/"
+        auth.redirect_uri = uploader.client_secret      #"http://example.com/redirect"
+        # auth.refresh_token = refresh_token
+        auth.grant_type = 'authorization_code'
+        auth.fetch_access_token!
+        @connection ||= GoogleDrive.login_with_oauth(auth.access_token)
+        
+        # @connection ||= ::GoogleDrive.login( uploader.google_login, uploader.google_password )
       end
 
       def store!(file)
